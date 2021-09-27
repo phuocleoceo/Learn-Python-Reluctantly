@@ -44,7 +44,3 @@ sound.stop()
 # f/2 : chậm hơn 2 lần , f*2 : nhanh hơn 2 lần
 
 # https://www.youtube.com/watch?v=3sbFipfyqiM
-
-
-# print(np.arange(1, 10, 3))
-# print(np.linspace(1, 10, 3))
