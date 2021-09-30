@@ -20,16 +20,23 @@ print(frequency, ",", signal)
 # sound.stop()
 L = len(signal)
 
+signal = np.array(signal, dtype=np.int64)
 # Cách 1
 # E1 = 0
 # for i in range(0, L):
 #     E1 += signal[i]*signal[i]
 # print(E1)
 
-# Cách 2
-A = np.array([x*x for x in signal])
-E2 = np.sum(A)
-print(E2)
+# Cách 3
+E3 = 0
+for x in signal:
+    E3 += x*x
+print(E3)
 
-Power = E2/L
+# Cách 2
+# A = np.array([x*x for x in signal])
+# E2 = np.sum(A)
+# print(E2)
+
+Power = E3/L
 print(Power)
