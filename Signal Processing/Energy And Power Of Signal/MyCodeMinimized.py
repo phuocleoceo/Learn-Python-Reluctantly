@@ -5,7 +5,7 @@ import numpy as np
 file_path = join(dirname(abspath(__file__)), "studio_male.wav")
 
 frequency, signal = read(file_path)
-signal = np.array([x/32767 for x in signal])
+signal = signal/32767
 
 print(frequency, ",", signal)
 
