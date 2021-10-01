@@ -9,9 +9,7 @@ signal = np.array([x/32767 for x in signal])
 
 print(frequency, ",", signal)
 
-E = 0
-for x in signal:
-    E += x*x
+E = np.sum(signal**2)
 print(">> Energy : ", E)
 
 L = len(signal)
