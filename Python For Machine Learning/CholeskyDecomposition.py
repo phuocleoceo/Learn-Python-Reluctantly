@@ -16,11 +16,16 @@ def is_positive_definite_matrix(V):
         if x <= 0:
             return False
     return True
+# def is_positive_definite_matrix(V):
+#     for i in range(0, n):
+#         if V[i] <= 0:
+#             return False
+#     return True
 
 
 def cholesky_decomposition(A):
     L = np.zeros_like(A)
-    n = np.shape(A)[0]
+    n = len(A)
     for j in range(0, n):
         for i in range(j, n):
             if i == j:
@@ -56,5 +61,5 @@ if not is_positive_definite_matrix(V):
 L = cholesky_decomposition(A)
 print(">> L : \n", L)
 
-# print(np.dot(L, np.transpose(L)))
+print(np.dot(L, L.T))
 # print(L.dot(np.transpose(L)))

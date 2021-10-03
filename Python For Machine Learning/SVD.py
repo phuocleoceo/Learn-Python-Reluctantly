@@ -1,11 +1,19 @@
 import numpy as np
 
 
-m, n = 5, 4
+def generate_D(m, n, r, S):
+    D = np.zeros((m, n))
+    for i in range(0, r):
+        D[i, i] = S[i]
+    return D
 
-A = np.random.rand(m, n)
+
+A = np.array([[1, 2], [3, 4], [2, 5]])
+# A = np.array([[1, 2, 3, 4], [4, 5, 6, 7], [4, 5, 6, 7]])
+print(">> Rank A : ", np.linalg.matrix_rank(A))
 
 U, S, V = np.linalg.svd(A)
+D = generate_D(len(A), len(A[0]), np.linalg.matrix_rank(A), S)
 
 print(">> Matrix A: \n", A)
 
@@ -13,6 +21,8 @@ print(">> Matrix U: \n", U)
 
 print(">> Matrix S: \n", S)
 
-print(">> Matrix V: \n", V)
+print(">> Matrix D: \n", D)
 
-# print(">> A.AT : \n", np.dot(A, A.T))
+print(">> Matrix V: \n", V)  # this V is VT
+
+print("U.D.VT : \n", (U.dot(D)).dot(V))

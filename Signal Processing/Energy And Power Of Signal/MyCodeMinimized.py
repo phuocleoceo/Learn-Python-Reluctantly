@@ -12,8 +12,7 @@ print(frequency, ",", signal)
 E = np.sum(signal**2)
 print(">> Energy : ", E)
 
-L = len(signal)
-P = E/L
+P = E/len(signal)
 print(">> Power : ", P)
 
 # https://dsp.stackexchange.com/questions/44571/why-is-there-an-amplitude-difference-in-matlab-and-python
