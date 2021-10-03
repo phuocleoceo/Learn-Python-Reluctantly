@@ -11,8 +11,8 @@ def generate_D(m, n, r, S):
 # A = np.array([[1, 2],
 #               [3, 4],
 #               [2, 5]])
-A = np.array([[1, 2, 3],
-              [4, 5, 6]])
+A = np.array([[1, 3, 5],
+              [7, 8, 9]])
 print(">> Rank A : ", np.linalg.matrix_rank(A))
 
 U, S, V = np.linalg.svd(A)
