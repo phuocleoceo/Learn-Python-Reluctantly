@@ -16,11 +16,6 @@ def is_positive_definite_matrix(V):
         if x <= 0:
             return False
     return True
-# def is_positive_definite_matrix(V):
-#     for i in range(0, n):
-#         if V[i] <= 0:
-#             return False
-#     return True
 
 
 def cholesky_decomposition(A):
@@ -41,25 +36,26 @@ def cholesky_decomposition(A):
     return L
 
 
-A = np.array([[7.3, 1, 0], [1, 20, 3.5], [0, 3.5, 2]])
+A = np.array([[7.5, 1, 0.5],
+              [1, 10, 2.5],
+              [0.5, 2.5, 8]])
 print(">> A : \n", A)
 
 m, n = np.shape(A)
 if m != n:
-    sys.exit("Ma tran A khong vuong !")
+    sys.exit(">> Ma tran A khong vuong !")
 
 
 if not is_symmetric_matrix(A):
-    sys.exit("Ma tran A khong doi xung !")
+    sys.exit(">> Ma tran A khong doi xung !")
 
 V = np.linalg.eigvals(A)
 print(">> V : \n", V)
 if not is_positive_definite_matrix(V):
-    sys.exit("Ma tran nay khong xac dinh duong !")
+    sys.exit(">> Ma tran A khong xac dinh duong !")
 
 
 L = cholesky_decomposition(A)
 print(">> L : \n", L)
 
-print(np.dot(L, L.T))
-# print(L.dot(np.transpose(L)))
+print(">> Check L.LT : \n", L.dot(L.T))

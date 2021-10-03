@@ -11,8 +11,11 @@ def generate_D(A, S):
     return D
 
 
-# A = np.array([[1, 2], [3, 4], [2, 5]])
-A = np.array([[1, 2, 3], [4, 5, 6]])
+# A = np.array([[1, 2],
+#               [3, 4],
+#               [2, 5]])
+A = np.array([[1, 2, 3],
+              [4, 5, 6]])
 print(">> Matrix A: \n", A)
 
 AdotAT = A.dot(A.T)
