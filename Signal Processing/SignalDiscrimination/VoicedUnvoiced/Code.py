@@ -52,24 +52,42 @@ plt.xlabel("Thoi gian")
 plt.ylabel("Gia tri")
 plt.title("Nang luong va ti le vuot qua khong")
 
-# a = np.array([0]*len(ste))
-# for i in range(0, len(ste)):
-#     if ste[i] > NguongSTE:
-#         a[i] = 1
-#     else:
-#         a[i] = 0
+id_ste = np.argwhere(ste > NguongSTE)
+id_zrc = np.argwhere(zrc < NguongZRC)
 
-# NguongKhoangLang = int(300/(ThoiLuongKhung*1000))
-# for i in range(0, len(a)-NguongKhoangLang):
-#     if a[i] == 1 and a[i+NguongKhoangLang] == 1:
-#         a[i:i+NguongKhoangLang] = 1
+a = np.array([0]*len(ste))
+for i in range(0, len(ste)):
+    if ste[i] > NguongSTE and zrc[i] < NguongZRC:
+        a[i] = 1
+    else:
+        a[i] = 0
 
-# for i in range(0, len(a)-1):
-#     if (a[i] == 0 and a[i+1] == 1) or (a[i] == 1 and a[i+1] == 0):
-#         plt.subplot(3, 1, 3)
-#         plt.plot(t, signal)
-#         plt.title("Phan doan tieng noi va khoang lang")
-#         plt.plot([(i+1)*ThoiLuongKhung, (i+1) *
-#                  ThoiLuongKhung], [-1, 1], "--k")
+
+for i in range(0, len(a)-1):
+    if (a[i] == 0 and a[i+1] == 1) or (a[i] == 1 and a[i+1] == 0):
+        plt.subplot(3, 1, 3)
+        plt.plot(t, signal)
+        plt.title("Phan doan am huu thanh va vo thanh")
+        plt.plot([(i+1)*ThoiLuongKhung, (i+1) *
+                 ThoiLuongKhung], [-1, 1], "--k")
 
 plt.show()
+# id = np.array([])
+# for i in range(0, SoLuongKhung):
+#     for j in range(0, len(id_zrc)):
+#         if i == id_zrc[j]:
+#             for k in range(0, len(id_ste)):
+#                 if i == id_ste[k]:
+#                     id = np.append(id, i)
+
+# id_voiced = np.array([0]*len(ste), dtype=float)
+# id_voiced[0] = id[0]-1
+# m = 1
+# for i in range(1, len(id)):
+#     if ThoiLuongKhung*id[i]-ThoiLuongKhung*id[i-1] > 0.2:
+#         id_voiced[m] = id[i-1]
+#         id_voiced[m+1] = id[i]-1
+#         m += 2
+
+# #id_voiced[m] = id[i]
+# local_voiced = ThoiLuongKhung*id_voiced
