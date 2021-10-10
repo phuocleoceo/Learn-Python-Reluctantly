@@ -6,8 +6,6 @@ import numpy as np
 import math
 import STE_Module
 
-NguongChung = 0.002
-
 file_path = join(dirname(dirname(abspath(__file__))),
                  "TrainingSignal", "studio_M1.wav")
 
@@ -22,6 +20,7 @@ print(">> Signal : ", signal)
 # sound.play(signal, Fs)
 # sound.wait()
 
+NguongChung = 0.001
 ThoiLuongKhung = 0.02  # 20-25ms
 DoDaiKhung = int(ThoiLuongKhung*Fs)  # 1 khung gồm bnhieu tín hiệu
 SoLuongKhung = math.floor(len(signal)/DoDaiKhung)
@@ -56,23 +55,25 @@ plt.xlabel("Thoi gian")
 plt.ylabel("Nang luong")
 plt.title("Nang luong tin hieu")
 
-check = np.array([0]*len(ste))
+a = np.array([0]*len(ste))
 for i in range(0, len(ste)):
     if ste[i] > NguongChung:
-        check[i] = 1
+        a[i] = 1
     else:
-        check[i] = 0
+        a[i] = 0
 
 NguongKhoangLang = int(300/(ThoiLuongKhung*1000))
-for i in range(0, len(check)-NguongKhoangLang):
-    if check[i] == 1 and check[i+NguongKhoangLang] == 1:
-        check[i:i+NguongKhoangLang] = 1
+for i in range(0, len(a)-NguongKhoangLang):
+    if a[i] == 1 and a[i+NguongKhoangLang] == 1:
+        a[i:i+NguongKhoangLang] = 1
 
-for i in range(0, len(check)-1):
-    if (check[i] == 0 and check[i+1] == 1) or (check[i] == 1 and check[i+1] == 0):
+for i in range(0, len(a)-1):
+    if (a[i] == 0 and a[i+1] == 1) or (a[i] == 1 and a[i+1] == 0):
         plt.subplot(3, 1, 3)
         plt.plot(t, signal)
-        plt.plot([i*ThoiLuongKhung, i*ThoiLuongKhung], [-1, 1], "--k")
+        plt.title("Phan doan tieng noi va khoang lang")
+        plt.plot([i*ThoiLuongKhung+ThoiLuongKhung, i *
+                 ThoiLuongKhung+ThoiLuongKhung], [-1, 1], "--k")
 
 plt.show()
 
