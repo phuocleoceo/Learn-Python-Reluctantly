@@ -6,7 +6,7 @@ import numpy as np
 import math
 import STE_Module
 
-NguongChung = 0.001
+NguongChung = 0.002
 
 file_path = join(dirname(dirname(abspath(__file__))),
                  "TrainingSignal", "studio_M1.wav")
@@ -34,27 +34,47 @@ for i in range(0, SoLuongKhung):
 
 ste = STE_Module.STE(Khung)
 
-ste_wave = np.array([0]*DoDaiKhung, dtype=float)
+ste_wave = np.array([0]*(DoDaiKhung*SoLuongKhung), dtype=float)
 temp = 0
 for i in range(0, len(ste)):
+    # for j in range(temp, temp + DoDaiKhung):
+    #     ste_wave[j] = ste[i]
     ste_wave[temp:temp+DoDaiKhung] = ste[i]
     temp += DoDaiKhung
 
-print("ABC", np.sum(ste_wave))
-
 t = np.linspace(0, len(signal)/Fs, len(signal))
+plt.subplot(3, 1, 1)
+plt.plot(t, signal)
+plt.xlabel("Thoi gian")
+plt.ylabel("Bien do")
+plt.title("Tin hieu vao")
+
 t1 = np.linspace(0, len(ste_wave)/Fs, len(ste_wave))
+plt.subplot(3, 1, 2)
+plt.plot(t1, ste_wave)
+plt.xlabel("Thoi gian")
+plt.ylabel("Nang luong")
+plt.title("Nang luong tin hieu")
 
-# plt.subplot(2, 1, 1)
-# plt.plot(t, signal)
-# plt.title("Tin hieu vao")
+check = np.array([0]*len(ste))
+for i in range(0, len(ste)):
+    if ste[i] > NguongChung:
+        check[i] = 1
+    else:
+        check[i] = 0
 
-# plt.subplot(2, 1, 2)
-# plt.plot(t1, ste_wave)
-# plt.title("Nang luong tin hieu")
+NguongKhoangLang = int(300/(ThoiLuongKhung*1000))
+for i in range(0, len(check)-NguongKhoangLang):
+    if check[i] == 1 and check[i+NguongKhoangLang] == 1:
+        check[i:i+NguongKhoangLang] = 1
 
-# plt.show()
-# plt.title('Short-Time Zero Crossing Counts')
-# plt.ylabel('ZCC')
-# plt.xlabel('FRAME')
-# plt.show()
+for i in range(0, len(check)-1):
+    if (check[i] == 0 and check[i+1] == 1) or (check[i] == 1 and check[i+1] == 0):
+        plt.subplot(3, 1, 3)
+        plt.plot(t, signal)
+        plt.plot([i*ThoiLuongKhung, i*ThoiLuongKhung], [-1, 1], "--k")
+
+plt.show()
+
+# x = a
+# a = i * ThoiLuongKhung
