@@ -17,11 +17,12 @@ print(">> Signal : ", signal)
 # sound.play(signal, fs)
 # sound.wait()
 
-# plt.plot(signal)
-# plt.ylabel("Amplitude")
-# plt.xlabel("Samples")
-# plt.show()
+plt.plot(signal)
+plt.ylabel("Amplitude")
+plt.xlabel("Samples")
+plt.show()
 
+# fs là số mẫu lấy được trong 1 giây
 sampsPerMilli = int(fs / 1000)
 millisPerFrame = 20
 sampsPerFrame = sampsPerMilli * millisPerFrame
