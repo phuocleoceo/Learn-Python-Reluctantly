@@ -6,8 +6,17 @@ import numpy as np
 import math
 import STE_Module
 
+# file = "studio_M1.wav"
+# file_chuan = [0.87, 2.06]
+file = "studio_F1.wav"
+file_chuan = [0.68, 2.15]
+# file = "phone_M1.wav"
+# file_chuan = [0.46, 3.52]
+# file = "phone_F1.wav"
+# file_chuan = [0.53, 2.75]
+
 file_path = join(dirname(dirname(abspath(__file__))),
-                 "TrainingSignal", "studio_M1.wav")
+                 "TrainingSignal", file)
 
 Fs, TinHieu = read(file_path)
 
@@ -72,7 +81,9 @@ for i in range(0, len(a)-1):
         plt.subplot(3, 1, 3)
         plt.plot(t, TinHieu)
         plt.title("Phan doan tieng noi va khoang lang")
-        plt.plot([(i+1)*ThoiLuongKhung, (i+1) *
-                 ThoiLuongKhung], [-1, 1], "--k")
+        plt.plot([i*ThoiLuongKhung, i*ThoiLuongKhung], [-1, 1], "-b")
+
+for x in file_chuan:
+    plt.plot([x, x], [-1, 1], "-r")
 
 plt.show()

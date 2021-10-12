@@ -7,8 +7,20 @@ import math
 import STE_Method
 import ZRC_Method
 
+# file = "phone_F1.wav"
+# file_chuan = [0.53, 1.14, 1.21, 1.35, 1.45, 1.60, 1.83,
+#               2.20, 2.28, 2.35, 2.40, 2.52, 2.66, 2.73, 2.75]
+# file = "phone_M1.wav"
+# file_chuan = [0.46, 1.39, 1.50, 1.69, 1.79,
+#               2.78, 2.86, 2.93, 3.10, 3.29, 3.45, 3.52]
+# file = "studio_M1.wav"
+# file_chuan = [0.87, 0.94, 1.26, 1.33, 1.59, 1.66, 1.78, 1.82, 2.06]
+file = "studio_F1.wav"
+file_chuan = [0.68, 0.70, 1.10, 1.13, 1.22, 1.27,
+              1.65, 1.70, 1.76, 1.79, 1.86, 1.92, 2.15]
+
 file_path = join(dirname(dirname(abspath(__file__))),
-                 "TrainingSignal", "studio_M1_1b.wav")
+                 "TrainingSignal", file)
 
 Fs, signal = read(file_path)
 
@@ -68,8 +80,10 @@ for i in range(0, len(a)-1):
         plt.subplot(3, 1, 3)
         plt.plot(t, signal)
         plt.title("Phan doan am huu thanh va vo thanh")
-        plt.plot([(i+1)*ThoiLuongKhung, (i+1) *
-                 ThoiLuongKhung], [-1, 1], "--k")
+        plt.plot([i*ThoiLuongKhung, i * ThoiLuongKhung], [-1, 1], "-b")
+
+for x in file_chuan:
+    plt.plot([x, x], [-1, 1], "-r")
 
 plt.show()
 # id = np.array([])
