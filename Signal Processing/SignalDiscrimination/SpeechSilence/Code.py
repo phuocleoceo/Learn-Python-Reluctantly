@@ -8,13 +8,16 @@ import STE_Module
 
 
 def Hanlde(file, file_chuan, STT):
+    # Vẽ Firgue
     plt.figure(STT)
 
+    # Đọc file
     file_path = join(dirname(dirname(abspath(__file__))),
                      "TrainingSignal", file)
 
     Fs, TinHieu = read(file_path)
 
+    # Chuẩn hoá về -1 1
     TinHieu = TinHieu / max(abs(TinHieu))
     print(">> Fs : ", Fs, "Hz")
     print(">> len(TinHieu) : ", len(TinHieu), "samples")
@@ -26,16 +29,19 @@ def Hanlde(file, file_chuan, STT):
     NguongChung = 0.008
     ThoiLuongKhung = 0.02  # 20-25ms
     DoDaiKhung = int(ThoiLuongKhung*Fs)  # 1 khung gồm bnhieu tín hiệu
+    # bỏ đi khung cuối cùng bị dư ra
     SoLuongKhung = math.floor(len(TinHieu)/DoDaiKhung)
 
+    # Ma trận không chứa các khung tín hiệu
     Khung = np.zeros((SoLuongKhung, DoDaiKhung), dtype=float)
     temp = 0
     for i in range(0, SoLuongKhung):
-        Khung[i, :] = TinHieu[temp:temp+DoDaiKhung]
+        Khung[i] = TinHieu[temp:temp+DoDaiKhung]
         temp += DoDaiKhung
 
     ste = STE_Module.STE(Khung)
 
+    # STE biểu diễn cho toàn tín hiệu
     ste_wave = np.array([0]*(DoDaiKhung*SoLuongKhung), dtype=float)
     temp = 0
     for i in range(0, len(ste)):
@@ -44,6 +50,7 @@ def Hanlde(file, file_chuan, STT):
         ste_wave[temp:temp+DoDaiKhung] = ste[i]
         temp += DoDaiKhung
 
+    # Biểu diễn tín hiệu theo thời gian
     t = np.linspace(0, len(TinHieu)/Fs, len(TinHieu), dtype=float)
     plt.subplot(3, 1, 1)
     plt.plot(t, TinHieu)
