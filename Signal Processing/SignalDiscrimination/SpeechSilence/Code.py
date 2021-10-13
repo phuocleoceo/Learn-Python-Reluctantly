@@ -6,84 +6,76 @@ import numpy as np
 import math
 import STE_Module
 
-file = "studio_M1.wav"
-file_chuan = [0, 0.87, 2.06, 2.73]
-# file = "studio_F1.wav"
-# file_chuan = [0, 0.68, 2.15, 2.86]
-# file = "phone_M1.wav"
-# file_chuan = [0, 0.46, 3.52, 4.15]
-# file = "phone_F1.wav"
-# file_chuan = [0, 0.53, 2.75, 3.23]
 
-file_path = join(dirname(dirname(abspath(__file__))),
-                 "TrainingSignal", file)
+def Hanlde(file, file_chuan, STT):
+    plt.figure(STT)
 
-Fs, TinHieu = read(file_path)
+    file_path = join(dirname(dirname(abspath(__file__))),
+                     "TrainingSignal", file)
 
-TinHieu = TinHieu / max(abs(TinHieu))
-print(">> Fs : ", Fs, "Hz")
-print(">> len(TinHieu) : ", len(TinHieu), "samples")
-print(">> TinHieu : ", TinHieu)
+    Fs, TinHieu = read(file_path)
 
-# sound.play(TinHieu, Fs)
-# sound.wait()
+    TinHieu = TinHieu / max(abs(TinHieu))
+    print(">> Fs : ", Fs, "Hz")
+    print(">> len(TinHieu) : ", len(TinHieu), "samples")
+    print(">> TinHieu : ", TinHieu)
 
-NguongChung = 0.008
-ThoiLuongKhung = 0.02  # 20-25ms
-DoDaiKhung = int(ThoiLuongKhung*Fs)  # 1 khung gồm bnhieu tín hiệu
-SoLuongKhung = math.floor(len(TinHieu)/DoDaiKhung)
+    # sound.play(TinHieu, Fs)
+    # sound.wait()
 
-Khung = np.zeros((SoLuongKhung, DoDaiKhung), dtype=float)
-temp = 0
-for i in range(0, SoLuongKhung):
-    Khung[i, :] = TinHieu[temp:temp+DoDaiKhung]
-    temp += DoDaiKhung
+    NguongChung = 0.008
+    ThoiLuongKhung = 0.02  # 20-25ms
+    DoDaiKhung = int(ThoiLuongKhung*Fs)  # 1 khung gồm bnhieu tín hiệu
+    SoLuongKhung = math.floor(len(TinHieu)/DoDaiKhung)
 
-ste = STE_Module.STE(Khung)
+    Khung = np.zeros((SoLuongKhung, DoDaiKhung), dtype=float)
+    temp = 0
+    for i in range(0, SoLuongKhung):
+        Khung[i, :] = TinHieu[temp:temp+DoDaiKhung]
+        temp += DoDaiKhung
 
-ste_wave = np.array([0]*(DoDaiKhung*SoLuongKhung), dtype=float)
-temp = 0
-for i in range(0, len(ste)):
-    # for j in range(temp, temp + DoDaiKhung):
-    #     ste_wave[j] = ste[i]
-    ste_wave[temp:temp+DoDaiKhung] = ste[i]
-    temp += DoDaiKhung
+    ste = STE_Module.STE(Khung)
 
-t = np.linspace(0, len(TinHieu)/Fs, len(TinHieu), dtype=float)
-plt.subplot(3, 1, 1)
-plt.plot(t, TinHieu)
-plt.xlabel("Thoi gian")
-plt.ylabel("Bien do")
-plt.title("Tin hieu vao")
+    ste_wave = np.array([0]*(DoDaiKhung*SoLuongKhung), dtype=float)
+    temp = 0
+    for i in range(0, len(ste)):
+        # for j in range(temp, temp + DoDaiKhung):
+        #     ste_wave[j] = ste[i]
+        ste_wave[temp:temp+DoDaiKhung] = ste[i]
+        temp += DoDaiKhung
 
-t1 = np.linspace(0, len(ste_wave)/Fs, len(ste_wave), dtype=float)
-plt.subplot(3, 1, 2)
-plt.plot(t1, ste_wave)
-plt.xlabel("Thoi gian")
-plt.ylabel("Nang luong")
-plt.title("Nang luong tin hieu")
+    t = np.linspace(0, len(TinHieu)/Fs, len(TinHieu), dtype=float)
+    plt.subplot(3, 1, 1)
+    plt.plot(t, TinHieu)
+    plt.xlabel("Thoi gian")
+    plt.ylabel("Bien do")
+    plt.title("Tin hieu vao "+file)
 
+    t1 = np.linspace(0, len(ste_wave)/Fs, len(ste_wave), dtype=float)
+    plt.subplot(3, 1, 2)
+    plt.plot(t1, ste_wave)
+    plt.xlabel("Thoi gian")
+    plt.ylabel("Nang luong")
+    plt.title("Nang luong tin hieu")
 
-a = np.array([0]*len(ste))
-for i in range(0, len(ste)):
-    if ste[i] > NguongChung:
-        a[i] = 1
-    else:
-        a[i] = 0
+    a = np.array([0]*len(ste))
+    for i in range(0, len(ste)):
+        if ste[i] > NguongChung:
+            a[i] = 1
+        else:
+            a[i] = 0
 
-NguongKhoangLang = int(300/(ThoiLuongKhung*1000))
-for i in range(0, len(a)-NguongKhoangLang):
-    if a[i] == 1 and a[i+NguongKhoangLang] == 1:
-        a[i:i+NguongKhoangLang] = 1
+    NguongKhoangLang = int(300/(ThoiLuongKhung*1000))
+    for i in range(0, len(a)-NguongKhoangLang):
+        if a[i] == 1 and a[i+NguongKhoangLang] == 1:
+            a[i:i+NguongKhoangLang] = 1
 
-plt.subplot(3, 1, 3)
-plt.title("Phan doan tieng noi va khoang lang")
-plt.plot(t, TinHieu)
-for i in range(0, len(a)-1):
-    if (a[i] == 0 and a[i+1] == 1) or (a[i] == 1 and a[i+1] == 0):
-        plt.plot([i*ThoiLuongKhung, i*ThoiLuongKhung], [-1, 1], "-b")
+    plt.subplot(3, 1, 3)
+    plt.title("Phan doan tieng noi va khoang lang")
+    plt.plot(t, TinHieu)
+    for i in range(0, len(a)-1):
+        if (a[i] == 0 and a[i+1] == 1) or (a[i] == 1 and a[i+1] == 0):
+            plt.plot([i*ThoiLuongKhung, i*ThoiLuongKhung], [-1, 1], "-b")
 
-for x in file_chuan:
-    plt.plot([x, x], [-1, 1], "-r")
-
-plt.show()
+    for x in file_chuan:
+        plt.plot([x, x], [-1, 1], "-r")
