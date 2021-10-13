@@ -6,7 +6,6 @@ def ZRC(Khung, N):
     zrc = np.array([0]*SoLuongKhung)
     for i in range(0, SoLuongKhung):
         x = Khung[i]
-        zrc[i] = 0
         for j in range(0, len(x)-1):
             if(x[j]*x[j+1] < 0):
                 zrc[i] += 1
