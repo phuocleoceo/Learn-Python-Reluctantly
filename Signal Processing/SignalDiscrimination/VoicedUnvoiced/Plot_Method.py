@@ -5,7 +5,8 @@ import sounddevice as sound
 import numpy as np
 import math
 import STE_Method
-import ZRC_Method
+import ZCR_Method
+import Frame_Method
 import G_Method
 
 
@@ -24,20 +25,16 @@ def PlotVU(file, lab, index):
     # sound.play(signal, Fs)
     # sound.wait()
 
-    NguongZRC = 0.8
+    NguongZCR = 0.8
     NguongSTE = 0.001
-    ThoiLuongKhung = 0.02  # 20-25ms
-    DoDaiKhung = int(ThoiLuongKhung*Fs)  # 1 khung gồm bnhieu tín hiệu
-    SoLuongKhung = math.floor(len(signal)/DoDaiKhung)
+    Frame_Time = 0.02  # 20-25ms
+    Frame_Length = int(Frame_Time*Fs)
+    Frame_Quantity = math.floor(len(signal)/Frame_Length)
 
-    Khung = np.zeros((SoLuongKhung, DoDaiKhung), dtype=float)
-    temp = 0
-    for i in range(0, SoLuongKhung):
-        Khung[i] = signal[temp:temp+DoDaiKhung]
-        temp += DoDaiKhung
+    Frames = Frame_Method.Frame_Split(Frame_Quantity, Frame_Length, signal)
 
-    ste, ste_mau = STE_Method.STE(Khung)
-    zrc, zrc_mau = ZRC_Method.ZRC(Khung, len(signal))
+    ste, ste_signal = STE_Method.STE(Frames)
+    zcr, zcr_signal = ZCR_Method.ZCR(Frames, len(signal))
 
     plt.figure(index)
     t = np.linspace(0, len(signal)/Fs, len(signal), dtype=float)
@@ -47,23 +44,23 @@ def PlotVU(file, lab, index):
     plt.ylabel("Bien do")
     plt.title("Tin hieu vao")
 
-    t1 = np.linspace(0, len(ste_mau)/Fs, len(ste_mau), dtype=float)
-    t2 = np.linspace(0, len(zrc_mau)/Fs, len(zrc_mau), dtype=float)
+    t1 = np.linspace(0, len(ste_signal)/Fs, len(ste_signal), dtype=float)
+    t2 = np.linspace(0, len(zcr_signal)/Fs, len(zcr_signal), dtype=float)
     plt.subplot(3, 1, 2)
-    plt.plot(t1, ste_mau)
-    plt.plot(t2, zrc_mau)
+    plt.plot(t1, ste_signal)
+    plt.plot(t2, zcr_signal)
     plt.xlabel("Thoi gian")
     plt.ylabel("Gia tri")
     plt.title("Nang luong va ti le vuot qua khong")
 
     # ste = G_Method.g(ste)
-    # zrc = G_Method.g(zrc)
+    # zcr = G_Method.g(zcr)
 
-    # vu = np.array([1 if ste[i]-zrc[i] >= 0 else 0 for i in range(0, len(ste))])
+    # vu = np.array([1 if ste[i]-zcr[i] >= 0 else 0 for i in range(0, len(ste))])
 
     a = np.array([0]*len(ste))
     for i in range(0, len(ste)):
-        if ste[i] > NguongSTE and zrc[i] < NguongZRC:
+        if ste[i] > NguongSTE and zcr[i] < NguongZCR:
             a[i] = 1
         else:
             a[i] = 0
@@ -73,16 +70,16 @@ def PlotVU(file, lab, index):
     plt.title("Phan doan am huu thanh va vo thanh")
     for i in range(0, len(a)-1):
         if a[i] + a[i+1] == 1:
-            plt.plot([(i+1)*ThoiLuongKhung, (i+1) *
-                     ThoiLuongKhung], [-1, 1], "-b")
+            plt.plot([(i+1)*Frame_Time, (i+1) *
+                     Frame_Time], [-1, 1], "-b")
 
     for x in lab:
         plt.plot([x, x], [-1, 1], "-r")
 
     # id = np.array([])
-    # for i in range(0, SoLuongKhung):
-    #     for j in range(0, len(id_zrc)):
-    #         if i == id_zrc[j]:
+    # for i in range(0, Frame_Quantity):
+    #     for j in range(0, len(id_zcr)):
+    #         if i == id_zcr[j]:
     #             for k in range(0, len(id_ste)):
     #                 if i == id_ste[k]:
     #                     id = np.append(id, i)
@@ -91,10 +88,10 @@ def PlotVU(file, lab, index):
     # id_voiced[0] = id[0]-1
     # m = 1
     # for i in range(1, len(id)):
-    #     if ThoiLuongKhung*id[i]-ThoiLuongKhung*id[i-1] > 0.2:
+    #     if Frame_Time*id[i]-Frame_Time*id[i-1] > 0.2:
     #         id_voiced[m] = id[i-1]
     #         id_voiced[m+1] = id[i]-1
     #         m += 2
 
     # #id_voiced[m] = id[i]
-    # local_voiced = ThoiLuongKhung*id_voiced
+    # local_voiced = Frame_Time*id_voiced
