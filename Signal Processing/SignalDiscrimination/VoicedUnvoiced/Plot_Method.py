@@ -11,7 +11,7 @@ import G_Method
 import math
 
 
-def PlotVU(file, lab, index):
+def PlotVU(file, lab, index, Tste, Tzcr):
     file_path = join(dirname(dirname(abspath(__file__))),
                      "TrainingSignal", file)
 
@@ -33,26 +33,26 @@ def PlotVU(file, lab, index):
     ste, ste_signal = STE_Method.STE(Frames)
     zcr, zcr_signal = ZCR_Method.ZCR(Frames, len(signal))
 
-    ste = G_Method.g(ste, 0.121)
-    zcr = G_Method.g(zcr, 0.16)
+    ste = G_Method.g(ste, Tste)
+    zcr = G_Method.g(zcr, Tzcr)
     vu, vu_signal = VU_Method.vu(ste, zcr, Frames)
 
     plt.figure(index)
-    t = np.linspace(0, len(signal)/Fs, len(signal), dtype=float)
-    t1 = np.linspace(0, len(ste_signal)/Fs, len(ste_signal), dtype=float)
-    t2 = np.linspace(0, len(zcr_signal)/Fs, len(zcr_signal), dtype=float)
+    t_signal = np.linspace(0, len(signal)/Fs, len(signal), dtype=float)
+    t_ste = np.linspace(0, len(ste_signal)/Fs, len(ste_signal), dtype=float)
+    t_zcr = np.linspace(0, len(zcr_signal)/Fs, len(zcr_signal), dtype=float)
     plt.subplot(3, 1, 1)
-    plt.plot(t, signal)
-    plt.plot(t1, ste_signal)
-    plt.plot(t2, zcr_signal)
-    plt.plot(t1, vu_signal)
-    plt.legend(["Signal", "STE", "ZRC", "VU"])
+    plt.plot(t_signal, signal)
+    plt.plot(t_ste, ste_signal)
+    plt.plot(t_zcr, zcr_signal)
+    plt.plot(t_ste, vu_signal)
+    plt.legend(["Signal", "STE", "ZCR", "VU"])
     plt.xlabel("Thoi gian")
     plt.ylabel("Bien do")
-    plt.title("Tin hieu vao "+file)
+    plt.title("Tin hieu vao " + file)
 
     plt.subplot(3, 1, 2)
-    plt.plot(t, signal)
+    plt.plot(t_signal, signal)
     plt.xlabel("Thoi gian")
     plt.ylabel("Bien do")
     plt.title("Phan doan am huu thanh va vo thanh")
@@ -61,8 +61,8 @@ def PlotVU(file, lab, index):
             plt.plot([(i+1)*Frame_Time, (i+1)*Frame_Time], [-1, 1], "-b")
 
     plt.subplot(3, 1, 3)
-    plt.plot(t, signal)
-
+    plt.plot(t_signal, signal)
+    plt.title("Bien gia tri chuan")
     plt.xlabel("Thoi gian")
     plt.ylabel("Bien do")
     for x in lab:

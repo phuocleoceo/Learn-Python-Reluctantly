@@ -13,8 +13,10 @@ file4 = "phone_F1.wav"
 lab4 = [0.53, 1.14, 1.21, 1.35, 1.45, 1.60, 1.83,
         2.20, 2.28, 2.35, 2.40, 2.52, 2.66, 2.73, 2.75]
 
-# Plot_Method.PlotVU(file1, lab1, 1)
-Plot_Method.PlotVU(file2, lab2, 2)
-# Plot_Method.PlotVU(file3, lab3, 3)
-# Plot_Method.PlotVU(file4, lab4, 4)
+Tste = 0.12
+Tzcr = 0.16
+# Plot_Method.PlotVU(file1, lab1, 1, Tste, Tzcr)
+Plot_Method.PlotVU(file2, lab2, 2, 0.12, 0.16)
+# Plot_Method.PlotVU(file3, lab3, 3, Tste, Tzcr)
+# Plot_Method.PlotVU(file4, lab4, 4, Tste, Tzcr)
 plt.show()
