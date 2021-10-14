@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import Plot_Method
 
 file1 = "studio_M1.wav"
-lab1 = [0.87, 0.94, 1.26, 1.33, 1.59, 1.66, 1.78, 1.82, 2.06]
+lab1 = [0.94, 1.26, 1.33, 1.59, 1.66, 1.78, 1.82, 2.06]
 file2 = "studio_F1.wav"
 lab2 = [0.70, 1.10, 1.13, 1.22, 1.27,
         1.65, 1.70, 1.76, 1.79, 1.86, 1.92, 2.15]

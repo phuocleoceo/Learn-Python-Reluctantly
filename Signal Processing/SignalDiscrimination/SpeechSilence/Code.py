@@ -50,20 +50,16 @@ def Hanlde(file, file_chuan, STT):
         ste_wave[temp:temp+DoDaiKhung] = ste[i]
         temp += DoDaiKhung
 
-    # Biểu diễn tín hiệu theo thời gian
+    # Biểu diễn tín hiệu và năng lượng theo thời gian
     t = np.linspace(0, len(TinHieu)/Fs, len(TinHieu), dtype=float)
-    plt.subplot(3, 1, 1)
+    t1 = np.linspace(0, len(ste_wave)/Fs, len(ste_wave), dtype=float)
+    plt.subplot(2, 1, 1)
     plt.plot(t, TinHieu)
+    plt.plot(t1, ste_wave)
+    plt.legend(["Tin hieu", "Nang luong ngan han"])
     plt.xlabel("Thoi gian")
     plt.ylabel("Bien do")
     plt.title("Tin hieu vao "+file)
-
-    t1 = np.linspace(0, len(ste_wave)/Fs, len(ste_wave), dtype=float)
-    plt.subplot(3, 1, 2)
-    plt.plot(t1, ste_wave)
-    plt.xlabel("Thoi gian")
-    plt.ylabel("Nang luong")
-    plt.title("Nang luong tin hieu")
 
     a = np.array([0]*len(ste))
     for i in range(0, len(ste)):
@@ -77,8 +73,10 @@ def Hanlde(file, file_chuan, STT):
         if a[i] == 1 and a[i+NguongKhoangLang] == 1:
             a[i:i+NguongKhoangLang] = 1
 
-    plt.subplot(3, 1, 3)
+    plt.subplot(2, 1, 2)
     plt.title("Phan doan tieng noi va khoang lang")
+    plt.xlabel("Thoi gian")
+    plt.ylabel("Bien do")
     plt.plot(t, TinHieu)
     for i in range(0, len(a)-1):
         if (a[i] == 0 and a[i+1] == 1) or (a[i] == 1 and a[i+1] == 0):

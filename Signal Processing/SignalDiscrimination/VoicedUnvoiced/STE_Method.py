@@ -1,11 +1,11 @@
 import numpy as np
 
 
-def STE(Khung):
-    Frame_Quantity, Frame_Length = np.shape(Khung)
+def STE(Frames):
+    Frame_Quantity, Frame_Length = np.shape(Frames)
     ste = np.array([0]*Frame_Quantity)
     for i in range(0, Frame_Quantity):
-        ste[i] = np.sum(Khung[i]**2)
+        ste[i] = np.sum(Frames[i]**2)
 
     ste = ste/np.max(ste)
 

@@ -1,11 +1,11 @@
 import numpy as np
 
 
-def ZCR(Khung, N):
-    Frame_Quantity, Frame_Length = np.shape(Khung)
+def ZCR(Frames, N):
+    Frame_Quantity, Frame_Length = np.shape(Frames)
     zrc = np.array([0]*Frame_Quantity)
     for i in range(0, Frame_Quantity):
-        x = Khung[i]
+        x = Frames[i]
         for j in range(0, len(x)-1):
             if(x[j]*x[j+1] < 0):
                 zrc[i] += 1

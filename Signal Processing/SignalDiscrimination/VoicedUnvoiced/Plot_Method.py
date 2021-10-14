@@ -24,7 +24,7 @@ def PlotVU(file, lab, index):
     # sound.play(signal, Fs)
     # sound.wait()
 
-    Frame_Time = 0.02  # 20-25ms
+    Frame_Time = 0.02
     Frame_Length = int(Frame_Time*Fs)
     Frame_Quantity = math.floor(len(signal)/Frame_Length)
 
@@ -46,6 +46,7 @@ def PlotVU(file, lab, index):
     plt.plot(t1, ste_signal)
     plt.plot(t2, zcr_signal)
     plt.plot(t1, vu_signal)
+    plt.legend(["Signal", "STE", "ZRC", "VU"])
     plt.xlabel("Thoi gian")
     plt.ylabel("Bien do")
     plt.title("Tin hieu vao "+file)
