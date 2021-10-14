@@ -8,7 +8,7 @@ import STE_Module
 
 
 def Hanlde(file, file_chuan, STT):
-    # Vẽ Firgue
+    # Vẽ Figure
     plt.figure(STT)
 
     # Đọc file
@@ -18,7 +18,7 @@ def Hanlde(file, file_chuan, STT):
     Fs, TinHieu = read(file_path)
 
     # Chuẩn hoá về -1 1
-    TinHieu = TinHieu / max(abs(TinHieu))
+    TinHieu = TinHieu / 32767
     print(">> Fs : ", Fs, "Hz")
     print(">> len(TinHieu) : ", len(TinHieu), "samples")
     print(">> TinHieu : ", TinHieu)
@@ -26,7 +26,7 @@ def Hanlde(file, file_chuan, STT):
     # sound.play(TinHieu, Fs)
     # sound.wait()
 
-    NguongChung = 0.008
+    NguongChung = 0.003
     ThoiLuongKhung = 0.02  # 20-25ms
     DoDaiKhung = int(ThoiLuongKhung*Fs)  # 1 khung gồm bnhieu tín hiệu
     # bỏ đi khung cuối cùng bị dư ra
