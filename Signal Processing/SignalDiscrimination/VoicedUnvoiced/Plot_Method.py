@@ -18,9 +18,7 @@ def PlotVU(file, lab, index, lab_label, Tste, Tzcr):
     Fs, signal = read(file_path)
 
     signal = signal / 32767
-    print(">> Fs : ", Fs)
-    print(">> Signal : ", signal)
-
+    print(">> Fs : ", Fs, ", Signal : ", signal)
     # sound.play(signal, Fs)
     # sound.wait()
 
@@ -47,13 +45,13 @@ def PlotVU(file, lab, index, lab_label, Tste, Tzcr):
     plt.plot(t_zcr, zcr_signal)
     plt.plot(t_ste, vu_signal)
     plt.legend(["Signal", "STE", "ZCR", "VU"])
-    plt.xlabel("Thoi gian")
+    plt.xlabel("Thoi gian (s)")
     plt.ylabel("Bien do")
     plt.title("Tin hieu vao " + file)
 
     plt.subplot(3, 1, 2)
     plt.plot(t_signal, signal)
-    plt.xlabel("Thoi gian")
+    plt.xlabel("Thoi gian (s)")
     plt.ylabel("Bien do")
     plt.title("Phan doan am huu thanh va vo thanh")
     for i in range(0, len(vu)-1):
@@ -67,11 +65,12 @@ def PlotVU(file, lab, index, lab_label, Tste, Tzcr):
     plt.subplot(3, 1, 3)
     plt.plot(t_signal, signal)
     plt.title("Bien gia tri chuan")
-    plt.xlabel("Thoi gian")
+    plt.xlabel("Thoi gian (s)")
     plt.ylabel("Bien do")
     for i in range(0, len(lab)):
         plt.plot([lab[i], lab[i]], [-1, 1], "-r")
-        if lab_label[i] == 0:
-            plt.text(lab[i], 0.7, "V")
-        else:
-            plt.text(lab[i], 0.7, "U")
+        if i != len(lab) - 1:
+            if lab_label[i] == 0:
+                plt.text(lab[i], 0.7, "U")
+            else:
+                plt.text(lab[i], 0.7, "V")
