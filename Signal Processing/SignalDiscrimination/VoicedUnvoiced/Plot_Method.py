@@ -11,7 +11,7 @@ import G_Method
 import math
 
 
-def PlotVU(file, lab, index, Tste, Tzcr):
+def PlotVU(file, lab, index, lab_label, Tste, Tzcr):
     file_path = join(dirname(dirname(abspath(__file__))),
                      "TrainingSignal", file)
 
@@ -59,11 +59,19 @@ def PlotVU(file, lab, index, Tste, Tzcr):
     for i in range(0, len(vu)-1):
         if vu[i] + vu[i+1] == 1:
             plt.plot([(i+1)*Frame_Time, (i+1)*Frame_Time], [-1, 1], "-b")
+            if vu[i] == 0:
+                plt.text((i+1)*Frame_Time, 0.7, "V")
+            else:
+                plt.text((i+1)*Frame_Time, 0.7, "U")
 
     plt.subplot(3, 1, 3)
     plt.plot(t_signal, signal)
     plt.title("Bien gia tri chuan")
     plt.xlabel("Thoi gian")
     plt.ylabel("Bien do")
-    for x in lab:
-        plt.plot([x, x], [-1, 1], "-r")
+    for i in range(0, len(lab)):
+        plt.plot([lab[i], lab[i]], [-1, 1], "-r")
+        if lab_label[i] == 0:
+            plt.text(lab[i], 0.7, "V")
+        else:
+            plt.text(lab[i], 0.7, "U")
