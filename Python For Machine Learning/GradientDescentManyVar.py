@@ -12,7 +12,7 @@ def grad(w):
 
 def l(w):
     N = Xbar.shape[0]
-    return .5/N*np.linalg.norm(Xbar.dot(w)-y, 2)**2
+    return 0.5/N*np.linalg.norm(Xbar.dot(w)-y, 2)**2
 
 
 def myGradientDescent(w_init, grad, alpha, loop=1000, esilon=1e-4):
@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     X = np.random.rand(1000, 1)
 
-    y = 4 + 3 * X + .2 * np.random.randn(1000, 1)  # noise added
+    y = 4 + 3 * X + 0.2 * np.random.randn(1000, 1)  # noise added
 
     # Building Xbar
 

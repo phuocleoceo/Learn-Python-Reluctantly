@@ -3,17 +3,16 @@ from scipy.io.wavfile import read
 import matplotlib.pyplot as plt
 import sounddevice as sound
 import numpy as np
+import Frame_Method
 import STE_Method
 import ZCR_Method
-import Frame_Method
 import VU_Method
 import G_Method
 import math
 
 
-def PlotVU(file, lab, index, lab_label, Tste, Tzcr):
-    file_path = join(dirname(dirname(abspath(__file__))),
-                     "TrainingSignal", file)
+def PlotVU(file, lab, index, lab_label):
+    file_path = join(dirname(abspath(__file__)), "TinHieuHuanLuyen", file)
 
     Fs, signal = read(file_path)
 
@@ -31,6 +30,8 @@ def PlotVU(file, lab, index, lab_label, Tste, Tzcr):
     ste, ste_signal = STE_Method.STE(Frames)
     zcr, zcr_signal = ZCR_Method.ZCR(Frames, len(signal))
 
+    Tste = 0.12
+    Tzcr = 0.16
     ste = G_Method.g(ste, Tste)
     zcr = G_Method.g(zcr, Tzcr)
     vu, vu_signal = VU_Method.vu(ste, zcr, Frames)
@@ -45,15 +46,15 @@ def PlotVU(file, lab, index, lab_label, Tste, Tzcr):
     plt.plot(t_zcr, zcr_signal)
     plt.plot(t_ste, vu_signal)
     plt.legend(["Signal", "STE", "ZCR", "VU"])
-    plt.xlabel("Thoi gian (s)")
-    plt.ylabel("Bien do")
-    plt.title("Tin hieu vao " + file)
+    plt.xlabel("Time (s)")
+    plt.ylabel("Amplitude")
+    plt.title("Signal " + file)
 
     plt.subplot(3, 1, 2)
     plt.plot(t_signal, signal)
-    plt.xlabel("Thoi gian (s)")
-    plt.ylabel("Bien do")
-    plt.title("Phan doan am huu thanh va vo thanh")
+    plt.xlabel("Time (s)")
+    plt.ylabel("Amplitude")
+    plt.title("Voiced and Unvoiced Discrimination")
     for i in range(0, len(vu)-1):
         if vu[i] + vu[i+1] == 1:
             plt.plot([(i+1)*Frame_Time, (i+1)*Frame_Time], [-1, 1], "-b")
@@ -64,9 +65,9 @@ def PlotVU(file, lab, index, lab_label, Tste, Tzcr):
 
     plt.subplot(3, 1, 3)
     plt.plot(t_signal, signal)
-    plt.title("Bien gia tri chuan")
-    plt.xlabel("Thoi gian (s)")
-    plt.ylabel("Bien do")
+    plt.title("Lab")
+    plt.xlabel("Time (s)")
+    plt.ylabel("Amplitude")
     for i in range(0, len(lab)):
         plt.plot([lab[i], lab[i]], [-1, 1], "-r")
         if i != len(lab) - 1:

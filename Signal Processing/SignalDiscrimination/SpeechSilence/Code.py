@@ -27,7 +27,7 @@ def Hanlde(file, file_chuan, STT):
     # sound.wait()
 
     NguongChung = 0.003
-    ThoiLuongKhung = 0.02  # 20-25ms
+    ThoiLuongKhung = 0.025  # 20-25ms
     DoDaiKhung = int(ThoiLuongKhung*Fs)  # 1 khung gồm bnhieu tín hiệu
     # bỏ đi khung cuối cùng bị dư ra
     SoLuongKhung = math.floor(len(TinHieu)/DoDaiKhung)
