@@ -11,8 +11,9 @@ import G_Method
 import math
 
 
-def PlotVU(file, lab, index, lab_label, Tste=0.12, Tzcr=0.16):
-    file_path = join(dirname(abspath(__file__)), "TinHieuHuanLuyen", file)
+def PlotVU(file, lab, lab_label, index, Tste=0.12, Tzcr=0.16):
+    # file_path = join(dirname(abspath(__file__)), "TinHieuHuanLuyen", file)
+    file_path = join(dirname(abspath(__file__)), "TinHieuKiemThu", file)
 
     Fs, signal = read(file_path)
 
