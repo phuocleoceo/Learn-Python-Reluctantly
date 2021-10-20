@@ -28,14 +28,25 @@ def FindT(lab, lab_label, file):
     file_path = join(dirname(abspath(__file__)), "TinHieuHuanLuyen", file)
     Fs, signal = read(file_path)
     signal = signal / 32767
-    U = []
-    V = []
+    U_label = []
+    V_label = []
     for i in range(0, len(lab_label)):
         n = [int(lab[i]*Fs), int(lab[i+1]*Fs)]
         if lab_label[i] == 0:
-            U.append(n)
+            U_label.append(n)
         else:
-            V.append(n)
+            V_label.append(n)
+
+    U = []
+    for u in U_label:
+        n = np.arange(u[0], u[1]+int(0.02*Fs), int(0.02*Fs))
+        for i in range(0, len(n)-1):
+            U.append([n[i], n[i+1]])
+    V = []
+    for v in V_label:
+        n = np.arange(v[0], v[1]+int(0.02*Fs), int(0.02*Fs))
+        for i in range(0, len(n)-1):
+            V.append([n[i], n[i+1]])
 
     STE_U = np.array([0]*len(U), dtype=float)
     ZCR_U = np.array([0]*len(U), dtype=float)

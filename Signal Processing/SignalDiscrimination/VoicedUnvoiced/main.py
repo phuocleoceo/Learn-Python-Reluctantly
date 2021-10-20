@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
-import Plot_Method
 import Threshold_Method
+import Plot_Method
+import numpy as np
 
 file1 = "studio_M1.wav"
 lab1 = [0.87, 0.94, 1.26, 1.33, 1.59, 1.66, 1.78, 1.82, 2.06]
@@ -26,11 +27,11 @@ T_STE2, T_ZCR2 = Threshold_Method.FindT(lab2, lab2_label, file2)
 T_STE3, T_ZCR3 = Threshold_Method.FindT(lab3, lab3_label, file3)
 T_STE4, T_ZCR4 = Threshold_Method.FindT(lab4, lab4_label, file4)
 
-T_STE = (T_STE1+T_STE2+T_STE3+T_STE4)/4
-T_ZCR = (T_ZCR1+T_ZCR2+T_ZCR3+T_ZCR4)/4
-print(T_STE, T_ZCR)
-Plot_Method.PlotVU(file1, lab1, 1, lab1_label, T_STE, T_ZCR)
-Plot_Method.PlotVU(file2, lab2, 2, lab2_label, T_STE, T_ZCR)
-Plot_Method.PlotVU(file3, lab3, 3, lab3_label, T_STE, T_ZCR)
-Plot_Method.PlotVU(file4, lab4, 4, lab4_label, T_STE, T_ZCR)
-plt.show()
+T_STE = np.mean([T_STE1, T_STE2, T_STE3, T_STE4])
+T_ZCR = np.mean([T_ZCR1, T_ZCR2, T_ZCR3, T_ZCR4])
+print("T_STE : ", T_STE, " , ", "T_ZCR : ", T_ZCR)
+# Plot_Method.PlotVU(file1, lab1, 1, lab1_label, T_STE, T_ZCR)
+# Plot_Method.PlotVU(file2, lab2, 2, lab2_label, T_STE, T_ZCR)
+# Plot_Method.PlotVU(file3, lab3, 3, lab3_label, T_STE, T_ZCR)
+# Plot_Method.PlotVU(file4, lab4, 4, lab4_label, T_STE, T_ZCR)
+# plt.show()
