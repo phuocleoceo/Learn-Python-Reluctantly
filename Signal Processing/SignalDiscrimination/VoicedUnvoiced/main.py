@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-from numpy.core.fromnumeric import mean
 import Plot_Method
 import Threshold_Method
 

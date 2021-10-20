@@ -1,10 +1,6 @@
 from os.path import dirname, join, abspath
 from scipy.io.wavfile import read
 import numpy as np
-import math
-import Frame_Method
-import STE_Method
-import ZCR_Method
 
 
 def threshold(f, g):
@@ -44,8 +40,8 @@ def FindT(lab, lab_label, file):
     STE_U = np.array([0]*len(U), dtype=float)
     ZCR_U = np.array([0]*len(U), dtype=float)
     for i in range(0, len(U)):
-        STE_U[i] = np.sum(signal[U[i][0]:U[i][1]]**2)
         x = signal[U[i][0]:U[i][1]]
+        STE_U[i] = np.sum(x**2)
         for j in range(0, len(x)-1):
             if(x[j]*x[j+1] < 0):
                 ZCR_U[i] += 1
@@ -56,8 +52,8 @@ def FindT(lab, lab_label, file):
     STE_V = np.array([0]*len(V), dtype=float)
     ZCR_V = np.array([0]*len(V), dtype=float)
     for i in range(0, len(V)):
-        STE_V[i] = np.sum(signal[V[i][0]:V[i][1]]**2)
         x = signal[V[i][0]:V[i][1]]
+        STE_V[i] = np.sum(x**2)
         for j in range(0, len(x)-1):
             if(x[j]*x[j+1] < 0):
                 ZCR_V[i] += 1
