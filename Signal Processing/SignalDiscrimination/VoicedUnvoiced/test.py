@@ -1,30 +1,24 @@
-# from prettytable import PrettyTable
-
-# myTable = PrettyTable(["STT", "Name"])
-
-# myTable.add_row(["1", "Phuoc"])
-
-# myTable.add_row(["2", "Ngan"])
-
-# myTable.add_row(["3", "Hoang"])
-
-# myTable.add_row(["4", "Duy"])
-
-# print(myTable)
 import numpy as np
+import math
 
-arr = np.array([4, 5, 6, 7, 8])
-print(sum(arr))
-print(np.sum(arr))
+arr = np.array([4, 5, 6, 7, 8, 0, -1, 2])
 
-T = 7
-f = np.argwhere(arr > T)
-print(len(f))
+# u = [[1, 2], [3, 5]]
+# for x in u:
+#     print(arr[x])
+print(np.floor(arr/2))
 
-g = len([i for i in arr if i > T])
-print(g)
+# T = 7
+# f = np.argwhere(arr > T)
+# print(len(f))
 
-# print(np.sum(arr % 2 == 0))
+# g = len([i for i in arr if i > T])
+# print(g)
 
-# T = 1
-# print(np.sum(f(f > T)-T))
+# BRR = []
+# BRR.append([4*2, 5*2])
+# BRR.append([7, 8])
+# print(BRR)
+
+b = [[1, 2], [4, 5]]
+print(b[0][1])

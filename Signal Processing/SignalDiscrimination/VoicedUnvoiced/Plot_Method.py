@@ -11,7 +11,7 @@ import G_Method
 import math
 
 
-def PlotVU(file, lab, index, lab_label):
+def PlotVU(file, lab, index, lab_label, Tste=0.12, Tzcr=0.16):
     file_path = join(dirname(abspath(__file__)), "TinHieuHuanLuyen", file)
 
     Fs, signal = read(file_path)
@@ -30,8 +30,6 @@ def PlotVU(file, lab, index, lab_label):
     ste, ste_signal = STE_Method.STE(Frames)
     zcr, zcr_signal = ZCR_Method.ZCR(Frames, len(signal))
 
-    Tste = 0.12
-    Tzcr = 0.16
     ste = G_Method.g(ste, Tste)
     zcr = G_Method.g(zcr, Tzcr)
     vu, vu_signal = VU_Method.vu(ste, zcr, Frames)
