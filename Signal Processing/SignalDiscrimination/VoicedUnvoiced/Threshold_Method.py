@@ -7,8 +7,8 @@ def threshold(f, g):
     Tmin = max(min(f), min(g))
     Tmax = min(max(f), max(g))
     T = (Tmin+Tmax)/2
-    i = len(np.argwhere(f < T))
-    p = len(np.argwhere(g > T))
+    i = np.sum(f < T)
+    p = np.sum(g > T)
     j = -1
     q = -1
     while i != j or p != q:
@@ -27,7 +27,8 @@ def threshold(f, g):
 def FindT(file, lab, lab_label):
     file_path = join(dirname(abspath(__file__)), "TinHieuHuanLuyen", file)
     Fs, signal = read(file_path)
-    signal = signal / 32767
+    signal = signal / max(abs(signal))
+
     U_label = []
     V_label = []
     for i in range(0, len(lab_label)):
@@ -36,20 +37,16 @@ def FindT(file, lab, lab_label):
             U_label.append(n)
         else:
             V_label.append(n)
-    print("U : ", U_label)
-    print("V : ", V_label)
     U = []
     for u in U_label:
-        n = np.arange(u[0], u[1]+int(0.02*Fs), int(0.02*Fs))
+        n = np.arange(u[0], u[1]+1, int(0.01*Fs))
         for i in range(0, len(n)-1):
             U.append([n[i], n[i+1]])
     V = []
     for v in V_label:
-        n = np.arange(v[0], v[1]+int(0.02*Fs), int(0.02*Fs))
+        n = np.arange(v[0], v[1]+1, int(0.01*Fs))
         for i in range(0, len(n)-1):
             V.append([n[i], n[i+1]])
-    # print("U : ", U)
-    # print("V : ", V)
 
     STE_U = np.array([0]*len(U), dtype=float)
     ZCR_U = np.array([0]*len(U), dtype=float)

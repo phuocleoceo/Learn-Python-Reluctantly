@@ -11,14 +11,14 @@ import G_Method
 import math
 
 
-def PlotVU(file, lab, lab_label, index, Tste=0.12, Tzcr=0.16):
+def PlotVU(file, lab, lab_label, index, Tste, Tzcr):
     # file_path = join(dirname(abspath(__file__)), "TinHieuHuanLuyen", file)
     file_path = join(dirname(abspath(__file__)), "TinHieuKiemThu", file)
 
     Fs, signal = read(file_path)
 
-    signal = signal / 32767
-    print(">> Fs : ", Fs, ", Signal : ", signal)
+    # signal = signal / max(abs(signal))
+    # print(">> Fs : ", Fs, ", Signal : ", signal)
     # sound.play(signal, Fs)
     # sound.wait()
 
