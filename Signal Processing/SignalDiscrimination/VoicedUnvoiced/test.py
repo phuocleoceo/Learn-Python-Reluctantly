@@ -32,5 +32,10 @@ import numpy as np
 
 # print(np.arange(33957, 34839+1, 882))
 
-zrr = np.array([4, 5])
-print(np.sum(zrr**2))
+# zrr = np.array([4, 5])
+# print(np.sum(zrr**2))
+
+vrr = np.array([1, 2, 3, 4, 5, 6, 10])
+T = 5
+print(len([i for i in vrr if i > T]))
+print(np.sum(vrr > T))

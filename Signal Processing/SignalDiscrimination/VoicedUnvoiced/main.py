@@ -49,12 +49,10 @@ lab4_demo = [1.02, 1.88, 1.95, 2.16, 2.25, 2.60, 2.75,
              3.34, 3.38, 3.45, 3.62, 3.80, 3.91, 4.00, 4.04]
 lab4_dm_label = [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
 
-# T_STE = 0.0923
-# T_ZCR = 0.1445
 # T_STE = 0.12
 # T_ZCR = 0.16
-# Plot_Method.PlotVU(file1_demo, lab1_demo, lab1_dm_label, 1, T_STE, T_ZCR)
-# Plot_Method.PlotVU(file2_demo, lab2_demo, lab2_dm_label, 2, T_STE, T_ZCR)
-# Plot_Method.PlotVU(file3_demo, lab3_demo, lab3_dm_label, 3, T_STE, T_ZCR)
-# Plot_Method.PlotVU(file4_demo, lab4_demo, lab4_dm_label, 4, T_STE, T_ZCR)
-# plt.show()
+Plot_Method.PlotVU(file1_demo, lab1_demo, lab1_dm_label, 1, T_STE, T_ZCR)
+Plot_Method.PlotVU(file2_demo, lab2_demo, lab2_dm_label, 2, T_STE, T_ZCR)
+Plot_Method.PlotVU(file3_demo, lab3_demo, lab3_dm_label, 3, T_STE, T_ZCR)
+Plot_Method.PlotVU(file4_demo, lab4_demo, lab4_dm_label, 4, T_STE, T_ZCR)
+plt.show()

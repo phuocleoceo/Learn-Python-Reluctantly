@@ -17,7 +17,7 @@ def PlotVU(file, lab, lab_label, index, Tste, Tzcr):
 
     Fs, signal = read(file_path)
 
-    # signal = signal / max(abs(signal))
+    signal = signal / max(abs(signal))
     # print(">> Fs : ", Fs, ", Signal : ", signal)
     # sound.play(signal, Fs)
     # sound.wait()
