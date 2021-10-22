@@ -1,7 +1,6 @@
 from os.path import dirname, join, abspath
 from scipy.io.wavfile import read
 import matplotlib.pyplot as plt
-import sounddevice as sound
 import numpy as np
 import Frame_Method
 import STE_Method
@@ -12,18 +11,15 @@ import math
 
 
 def PlotVU(file, lab, lab_label, index, Tste, Tzcr):
-    # file_path = join(dirname(abspath(__file__)), "TinHieuHuanLuyen", file)
     file_path = join(dirname(abspath(__file__)), "TinHieuKiemThu", file)
 
     Fs, signal = read(file_path)
 
     signal = signal / max(abs(signal))
     # print(">> Fs : ", Fs, ", Signal : ", signal)
-    # sound.play(signal, Fs)
-    # sound.wait()
 
     Frame_Time = 0.02
-    Frame_Length = int(Frame_Time*Fs)
+    Frame_Length = math.floor(Frame_Time*Fs)
     Frame_Quantity = math.floor(len(signal)/Frame_Length)
 
     Frames = Frame_Method.Frame_Split(Frame_Quantity, Frame_Length, signal)
