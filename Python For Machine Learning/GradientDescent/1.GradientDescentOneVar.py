@@ -31,7 +31,7 @@ if __name__ == '__main__':
     print('Solution x1 = %f, cost = %f, obtained after %d iterations' %
           (x1[-1], cost(x1[-1]), it1))
 
-    plt.plot(x1[-1], cost(x1[-1]), 'bX')
+    plt.plot(x1[-1], cost(x1[-1]), 'rX')
 
     print('Solution x2 = %f, cost = %f, obtained after %d iterations' %
           (x2[-1], cost(x2[-1]), it2))
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     print('Solution x4 = %f, cost = %f, obtained after %d iterations' %
           (x4[-1], cost(x4[-1]), it4))
 
-    plt.plot(x4[-1], cost(x4[-1]), 'bX')
+    plt.plot(x4[-1], cost(x4[-1]), 'rX')
 
     (x5, i5) = myGD1(.1, -1.1)
 
