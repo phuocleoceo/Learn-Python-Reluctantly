@@ -41,14 +41,26 @@ def LinearProgramming(n, x, constraints, objectives, option="Minimize"):
 
 ##############################################################################
 
+# n = 6
+# x = InitVariable(n)
+
+# constraints = []
+# constraints.append(x[1]+x[4]+x[5]-x[6] == 2)
+# constraints.append(x[2]+x[4]+x[6] == 12)
+# constraints.append(x[3]+2*x[4]+4*x[5]+3*x[6] == 9)
+
+# objectives = x[1]-x[2]-2*x[4]+2*x[5]-2*x[6]
+# LinearProgramming(n, x, constraints, objectives, "Minimize")
+# # LinearProgramming(n, x, constraints, objectives, "Maximize")
+
 n = 6
 x = InitVariable(n)
 
 constraints = []
-constraints.append(x[1]+x[4]+x[5]-x[6] == 2)
-constraints.append(x[2]+x[4]+x[6] == 12)
-constraints.append(x[3]+2*x[4]+4*x[5]+3*x[6] == 9)
+constraints.append(x[1]+x[2]-x[3]+x[5] == 7)
+constraints.append(-4*x[2]+4*x[3]+x[4] == 12)
+constraints.append(-5*x[2]+3*x[3]+x[5]+x[6] == 10)
 
-objectives = x[1]-x[2]-2*x[4]+2*x[5]-2*x[6]
+objectives = x[2]-3*x[3]+2*x[5]
 LinearProgramming(n, x, constraints, objectives, "Minimize")
-# LinearProgramming(n, x, constraints, objectives, "Maximize")
+#LinearProgramming(n, x, constraints, objectives, "Maximize")
