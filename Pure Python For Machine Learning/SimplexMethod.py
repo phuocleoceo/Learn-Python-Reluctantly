@@ -62,11 +62,11 @@ def SimplexMethod(c, b, a):
     # BasicVar lưu chỉ số biến được xét, Coeff lưu hệ số
     BasicVar = []
     Coeff = []
-    # Check 1 phần tử ma trận > 0 , tính tổng của cột chứa nó
-    # Nếu Tổng cột đó bằng nó => các phần tử khác cùng hàng đều = 0  => ẨnCB
+    # Check 1 phần tử ma trận ==1 , tính tổng của cột chứa nó
+    # Nếu Tổng cột đó bằng nó (1) => các phần tử khác cùng hàng đều = 0  => ẨnCB
     for i in range(m):
         for j in range(n):
-            if a[i][j] > 0:
+            if a[i][j] == 1:
                 aj = [x[j] for x in a]
                 if np.sum(aj) == a[i][j]:
                     BasicVar.append(j)
