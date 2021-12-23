@@ -86,7 +86,12 @@ def SimplexMethod(c, b, a):
 
         # Nếu ∆s = max {∆j} với ∆j > 0 (j=1..n)
         # thì đưa xs đưa vào tập ẩn cơ bản
-        s = np.argmax(delta > 0)
+        maxS = 0
+        s = None
+        for i in range(0, len(delta)):
+            if delta[i] > 0 and delta[i] > maxS:
+                maxS = delta[i]
+                s = i
 
         # Nếu br/ars =  min {bi/ais} với ais > 0
         # thì loại xr ra khỏi tập ẩn cơ bản

@@ -12,7 +12,7 @@ def cost(x):  # f(x) x^2 + 10x sin(x)
     return x**2 + 10*np.sin(x)
 
 
-def GD_momentum(theta_init, alpha=0.1, beta=0.9, Loop=1000):
+def GD_momentum(theta_init, alpha=0.1, beta=0.9, Loop=1000, esilon=1e-3):
 
     theta = [theta_init]
 
@@ -23,7 +23,8 @@ def GD_momentum(theta_init, alpha=0.1, beta=0.9, Loop=1000):
         v_new = beta*v_old + alpha*grad(theta[-1])  # vt
 
         theta_new = theta[-1] - v_new
-
+        if np.abs(grad(theta_new)) < esilon:
+            break
         theta.append(theta_new)
 
         v_old = v_new
